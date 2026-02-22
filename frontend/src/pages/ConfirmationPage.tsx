@@ -6,6 +6,14 @@ interface ConfirmationPageProps {
   onBack: () => void;
 }
 
+/** Convert a 0–48 slot index to a human-readable "HH:MM" string. */
+function slotToTime(slot: number): string {
+  const totalMinutes = slot * 30;
+  const h = Math.floor(totalMinutes / 60).toString().padStart(2, '0');
+  const m = (totalMinutes % 60).toString().padStart(2, '0');
+  return `${h}:${m}`;
+}
+
 export function ConfirmationPage({ booking, onBack }: ConfirmationPageProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-6 text-center">
@@ -17,11 +25,11 @@ export function ConfirmationPage({ booking, onBack }: ConfirmationPageProps) {
         <Row label="Student ID" value={booking.studentId} />
         <Row
           label="Start"
-          value={new Date(booking.startTime).toLocaleString()}
+          value={slotToTime(booking.startSlot)}
         />
         <Row
           label="End"
-          value={new Date(booking.endTime).toLocaleString()}
+          value={slotToTime(booking.endSlot)}
         />
         <Row label="Status" value={booking.status} />
       </div>

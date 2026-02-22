@@ -1,12 +1,6 @@
 import { create } from 'zustand';
 import type { Seat } from '../types';
 
-/** Convert the current wall-clock time to a 0–47 slot index (floor). */
-function currentSlot(): number {
-  const now = new Date();
-  return Math.floor((now.getHours() * 60 + now.getMinutes()) / 30);
-}
-
 /**
  * Round the current wall-clock time UP to the next 30-min slot boundary,
  * then set the right thumb one slot ahead so the default range is 30 min.
